@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid
+        android:color="@color/button_notpressed"/>
+    <corners android:radius="@dimen/delete_radius"/>
+</shape>

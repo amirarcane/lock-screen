@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/layout_background</color>
+    <color name="colorPrimaryDark">@color/layout_background</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="text_numberpressed">#fff</color>
+    <color name="text_title">#dcddde</color>
+    <color name="layout_background">#18191A</color>
+    <color name="text_attempts">#bfc0c1</color>
+    <color name="text_fingerprint">#FF87898C</color>
+    <color name="button_notpressed">#2136FFD9</color>
+    <color name="dot_emptyborder">#87898C</color>
+    <color name="transparent">#00000000</color>
+</resources>
