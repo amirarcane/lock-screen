@@ -41,19 +41,6 @@ compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
 
 <!-- ```xml -->
 
-<!-- <com.jess.ui.TwoWayGridView -->
-    <!-- android:id="@+id/gridView" -->
-    <!-- android:layout_width="match_parent" -->
-    <!-- android:layout_height="match_parent" -->
-    <!-- android:background="#E8E8E8" -->
-    <!-- app:columnWidth="70dp" -->
-    <!-- app:rowHeight="70dp" -->
-    <!-- app:numColumns="auto_fit" -->
-    <!-- app:numRows="auto_fit" -->
-    <!-- app:verticalSpacing="16dp" -->
-    <!-- app:horizontalSpacing="16dp" -->
-    <!-- app:gravity="center"/> -->
-
 <!-- ``` -->
 <!-- --- -->
 <!-- # Customization -->
