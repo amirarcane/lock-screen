@@ -4,7 +4,13 @@ Simple and beautiful Lock Screen library to set an check pin code. Integrated wi
 
 Easily secure your app with Lock Screen library as easy as starting an intent. 
 
-![Screenshots](https://github.com/amirarcane/lock-screen/blob/master/demo/set.gif) ![Screenshots](https://github.com/amirarcane/lock-screen/blob/master/demo/check.gif) 
+# Set Pin
+
+![Screenshots](https://github.com/amirarcane/lock-screen/blob/master/demo/set.gif)
+
+# Check Pin
+ 
+![Screenshots](https://github.com/amirarcane/lock-screen/blob/master/demo/check.gif) 
 
 Lock Screen gets a 4 digit pincode from user at first running time.
 
