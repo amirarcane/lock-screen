@@ -4,6 +4,8 @@ Simple and beautiful Lock Screen library to set an check pin code. Integrated wi
 
 Easily secure your app with Lock Screen library as easy as starting an intent. 
 
+With great animations for fingerprint authentication.
+
 Set Pin:
 
 ![Screenshots](https://github.com/amirarcane/lock-screen/blob/master/demo/set.gif)
