@@ -83,7 +83,9 @@ If you need to set font for this library try like below:
   startActivity(intent);
   ```
   
-FONT_TEXT and FONT_NUMBERS are name of your fonts ins assets folder. IF need set pin and changing fonts, do this:
+FONT_TEXT and FONT_NUMBERS are path of your fonts in assets folder like "font/Arial.ttf"
+
+IF need set pin and changing fonts, do this:
 
 ```java
   Intent intent = EnterPinActivity.getIntent(getContext(), SET_PIN, FONT_TEXT, FONT_NUMBERS);
