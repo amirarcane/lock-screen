@@ -34,14 +34,14 @@ compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
  
  ```java
  <activity android:name="com.amirarcane.lockscreen.activity.EnterPinActivity"
-             android:theme="@style/Theme.AppCompat.NoActionBar"/>
+           android:theme="@style/Theme.AppCompat.NoActionBar"/>
  ```
  
  Now easily start the Intent:
  
  ```java
   Intent intent = new Intent(getContext(), EnterPinActivity.class);
-                  startActivity(intent);
+  startActivity(intent);
   ```
   
   That's it. As easy as piece of cake.
@@ -51,7 +51,7 @@ compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
   
   ```java
     Intent intent = EnterPinActivity.getIntent(getContext(), SET_PIN);
-                    startActivity(intent);
+    startActivity(intent);
    ```
     
 SET_PIN is boolean.
@@ -80,14 +80,14 @@ If you need to set font for this library try like below:
 
 ```java
   Intent intent = EnterPinActivity.getIntent(getContext(), FONT_TEXT, FONT_NUMBERS);
-                  startActivity(intent);
+  startActivity(intent);
   ```
   
 FONT_TEXT and FONT_NUMBERS are name of your fonts ins assets folder. IF need set pin and changing fonts, do this:
 
 ```java
   Intent intent = EnterPinActivity.getIntent(getContext(), SET_PIN, FONT_TEXT, FONT_NUMBERS);
-                  startActivity(intent);
+  startActivity(intent);
   ```
   
 I customized PinLockView by andrognito for my Lock Screen view. In case of any further customization, fork the library
