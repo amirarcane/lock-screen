@@ -40,7 +40,7 @@ compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
  Now easily start the Intent:
  
  ```java
-  Intent intent = new Intent(MainActivity.this, EnterPinActivity.class);
+  Intent intent = new Intent(getContext(), EnterPinActivity.class);
                   startActivity(intent);
   ```
   
