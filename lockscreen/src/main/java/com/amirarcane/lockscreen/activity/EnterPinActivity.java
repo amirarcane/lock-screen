@@ -83,6 +83,14 @@ public class EnterPinActivity extends AppCompatActivity {
     private AnimatedVectorDrawable fingerprintToTick;
     private AnimatedVectorDrawable fingerprintToCross;
 
+    public static Intent getIntent(Context context, boolean setPin) {
+        Intent intent = new Intent(context, EnterPinActivity.class);
+
+        intent.putExtra(EXTRA_SET_PIN, setPin);
+
+        return intent;
+    }
+
     public static Intent getIntent(Context context, String fontText, String fontNum) {
         Intent intent = new Intent(context, EnterPinActivity.class);
 
@@ -174,6 +182,7 @@ public class EnterPinActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent.hasExtra(EXTRA_FONT_TEXT)) {
+
             String font = intent.getStringExtra(EXTRA_FONT_TEXT);
             setTextFont(font);
         }
