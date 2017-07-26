@@ -54,6 +54,24 @@ compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
     
 SET_PIN is boolean.
 
+If you need to handle back press of Lock Screen activity, just try onActivityResult:
+
+  ```java
+    @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            switch (requestCode) {
+                case REQUEST_CODE:
+                if (resultCode == EnterPinActivity.RESULT_BACK_PRESSED) {
+                    Toast.makeText(MainActivity.this, "back pressed", Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+        }
+   ```
+   
+See MainActivity class in Sample app for understanding how this library works.   
+
  # Customization
 
 If you need to set font for this library try like below:

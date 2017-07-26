@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.amirarcane.lockscreen.activity.EnterPinActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String FONT_TEXT = "font/ALEAWB.TTF";
-    public static final String FONT_NUMBER = "font/BLKCHCRY.TTF";
+    private static final String FONT_TEXT = "font/ALEAWB.TTF";
+    private static final String FONT_NUMBER = "font/BLKCHCRY.TTF";
+
+    private static final int REQUEST_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
                 // start the activity, It handles the setting and checking
                 Intent intent = new Intent(MainActivity.this, EnterPinActivity.class);
-                startActivity(intent);
+//                startActivity(intent);
 
+                // for handling back press
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -65,5 +70,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE:
+            if (resultCode == EnterPinActivity.RESULT_BACK_PRESSED) {
+                Toast.makeText(MainActivity.this, "back pressed", Toast.LENGTH_LONG).show();
+            }
+            break;
+        }
     }
 }
