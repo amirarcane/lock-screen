@@ -73,7 +73,7 @@ If you need to handle back press of Lock Screen activity, just try onActivityRes
    ```
    
 See MainActivity class in Sample app for understanding how this library works.   
-
+---
  # Customization
 
 If you need to set font for this library try like below:
