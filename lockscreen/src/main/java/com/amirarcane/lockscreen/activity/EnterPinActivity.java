@@ -125,57 +125,56 @@ public class EnterPinActivity extends AppCompatActivity {
             showFingerprint = (AnimatedVectorDrawable) getDrawable(R.drawable.show_fingerprint);
             fingerprintToTick = (AnimatedVectorDrawable) getDrawable(R.drawable.fingerprint_to_tick);
             fingerprintToCross = (AnimatedVectorDrawable) getDrawable(R.drawable.fingerprint_to_cross);
+        }
 
+        mSetPin = getIntent().getBooleanExtra(EXTRA_SET_PIN, false);
 
-            mSetPin = getIntent().getBooleanExtra(EXTRA_SET_PIN, false);
-
-            if (mSetPin) {
+        if (mSetPin) {
+            changeLayoutForSetPin();
+        } else {
+            String pin = getPinFromSharedPreferences();
+            if (pin.equals("")) {
                 changeLayoutForSetPin();
+                mSetPin = true;
             } else {
-                String pin = getPinFromSharedPreferences();
-                if (pin.equals("")) {
-                    changeLayoutForSetPin();
-                    mSetPin = true;
+                checkForFingerPrint();
+            }
+        }
+
+        final PinLockListener pinLockListener = new PinLockListener() {
+
+            @Override
+            public void onComplete(String pin) {
+                if (mSetPin) {
+                    setPin(pin);
                 } else {
-                    checkForFingerPrint();
+                    checkPin(pin);
                 }
             }
 
-            final PinLockListener pinLockListener = new PinLockListener() {
+            @Override
+            public void onEmpty() {
+                Log.d(TAG, "Pin empty");
+            }
 
-                @Override
-                public void onComplete(String pin) {
-                    if (mSetPin) {
-                        setPin(pin);
-                    } else {
-                        checkPin(pin);
-                    }
-                }
+            @Override
+            public void onPinChange(int pinLength, String intermediatePin) {
+                Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
+            }
 
-                @Override
-                public void onEmpty() {
-                    Log.d(TAG, "Pin empty");
-                }
+        };
 
-                @Override
-                public void onPinChange(int pinLength, String intermediatePin) {
-                    Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
-                }
+        mPinLockView = (PinLockView) findViewById(R.id.pinlockView);
+        mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
 
-            };
+        mPinLockView.attachIndicatorDots(mIndicatorDots);
+        mPinLockView.setPinLockListener(pinLockListener);
 
-            mPinLockView = (PinLockView) findViewById(R.id.pinlockView);
-            mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
+        mPinLockView.setPinLength(PIN_LENGTH);
 
-            mPinLockView.attachIndicatorDots(mIndicatorDots);
-            mPinLockView.setPinLockListener(pinLockListener);
+        mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
 
-            mPinLockView.setPinLength(PIN_LENGTH);
-
-            mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
-
-            checkForFont();
-        }
+        checkForFont();
     }
 
     private void checkForFont() {
