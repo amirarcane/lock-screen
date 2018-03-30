@@ -267,7 +267,8 @@ public class EnterPinActivity extends AppCompatActivity {
             }
         } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException e) {
-            throw new RuntimeException("Failed to get Cipher", e);
+            Log.e(TAG, "Failed to get Cipher");
+            return false;
         }
 
         try {
@@ -278,7 +279,8 @@ public class EnterPinActivity extends AppCompatActivity {
             //Return true if the mCipher has been initialized successfully//
             return true;
         } catch (Exception e) {
-            throw new RuntimeException("Failed to init Cipher", e);
+            Log.e(TAG, "Failed to init Cipher");
+            return false;
         }
     }
 
