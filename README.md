@@ -25,7 +25,7 @@ Watching this repository will allow GitHub to email you whenever I publish a rel
 Add this line to your `build.gradle` project
 
 ```java
-compile 'com.amirarcane.lock-screen:lockscreen:1.0.1'
+compile 'com.amirarcane.lock-screen:lockscreen:2.0.0'
 ```
 ---
 # Usage

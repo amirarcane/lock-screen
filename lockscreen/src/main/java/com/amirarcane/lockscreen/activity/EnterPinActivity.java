@@ -395,62 +395,64 @@ public class EnterPinActivity extends AppCompatActivity {
         // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
         // or higher before executing any fingerprint-related code
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //Get an instance of KeyguardManager and FingerprintManager//
-            mKeyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-            mFingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+            FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
+            if (fingerprintManager.isHardwareDetected()) {
+                //Get an instance of KeyguardManager and FingerprintManager//
+                mKeyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+                mFingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
-            //Check whether the device has a fingerprint sensor//
-            if (!mFingerprintManager.isHardwareDetected()) {
-                // If a fingerprint sensor isn’t available, then inform the user that they’ll be unable to use your app’s fingerprint functionality//
-//                textView.setText("Your device doesn't support fingerprint authentication");
-                mImageViewFingerView.setVisibility(View.GONE);
-                mTextFingerText.setVisibility(View.GONE);
-            }
-            //Check whether the user has granted your app the USE_FINGERPRINT permission//
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-                // If your app doesn't have this permission, then display the following text//
+                //Check whether the user has granted your app the USE_FINGERPRINT permission//
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // If your app doesn't have this permission, then display the following text//
 //                Toast.makeText(EnterPinActivity.this, "Please enable the fingerprint permission", Toast.LENGTH_LONG).show();
-                mImageViewFingerView.setVisibility(View.GONE);
-                mTextFingerText.setVisibility(View.GONE);
-            }
+                    mImageViewFingerView.setVisibility(View.GONE);
+//                    mTextFingerText.setVisibility(View.GONE);
+                    return;
+                }
 
-            //Check that the user has registered at least one fingerprint//
-            if (!mFingerprintManager.hasEnrolledFingerprints()) {
-                // If the user hasn’t configured any fingerprints, then display the following message//
+                //Check that the user has registered at least one fingerprint//
+                if (!mFingerprintManager.hasEnrolledFingerprints()) {
+                    // If the user hasn’t configured any fingerprints, then display the following message//
 //                Toast.makeText(EnterPinActivity.this,
 //                        "No fingerprint configured. Please register at least one fingerprint in your device's Settings",
 //                        Toast.LENGTH_LONG).show();
-                mImageViewFingerView.setVisibility(View.GONE);
-                mTextFingerText.setVisibility(View.GONE);
-            }
+                    mImageViewFingerView.setVisibility(View.GONE);
+//                    mTextFingerText.setVisibility(View.GONE);
+                    return;
+                }
 
-            //Check that the lockscreen is secured//
-            if (!mKeyguardManager.isKeyguardSecure()) {
-                // If the user hasn’t secured their lockscreen with a PIN password or pattern, then display the following text//
+                //Check that the lockscreen is secured//
+                if (!mKeyguardManager.isKeyguardSecure()) {
+                    // If the user hasn’t secured their lockscreen with a PIN password or pattern, then display the following text//
 //                Toast.makeText(EnterPinActivity.this, "Please enable lockscreen security in your device's Settings", Toast.LENGTH_LONG).show();
-                mImageViewFingerView.setVisibility(View.GONE);
-                mTextFingerText.setVisibility(View.GONE);
+                    mImageViewFingerView.setVisibility(View.GONE);
+//                    mTextFingerText.setVisibility(View.GONE);
+                    return;
+                } else {
+                    try {
+                        generateKey();
+                        if (initCipher()) {
+                            //If the mCipher is initialized successfully, then create a CryptoObject instance//
+                            mCryptoObject = new FingerprintManager.CryptoObject(mCipher);
+
+                            // Here, I’m referencing the FingerprintHandler class that we’ll create in the next section. This class will be responsible
+                            // for starting the authentication process (via the startAuth method) and processing the authentication process events//
+                            FingerprintHandler helper = new FingerprintHandler(this);
+                            helper.startAuth(mFingerprintManager, mCryptoObject);
+                            helper.setFingerPrintListener(fingerPrintListener);
+                        }
+                    } catch (FingerprintException e) {
+                        Log.wtf(TAG, "Failed to generate key for fingerprint.", e);
+                    }
+                }
             } else {
-                try {
-                    generateKey();
-                } catch (FingerprintException e) {
-                    Log.wtf(TAG, "Failed to generate key for fingerprint.", e);
-                }
-
-                if (initCipher()) {
-                    //If the mCipher is initialized successfully, then create a CryptoObject instance//
-                    mCryptoObject = new FingerprintManager.CryptoObject(mCipher);
-
-                    // Here, I’m referencing the FingerprintHandler class that we’ll create in the next section. This class will be responsible
-                    // for starting the authentication process (via the startAuth method) and processing the authentication process events//
-                    FingerprintHandler helper = new FingerprintHandler(this);
-                    helper.startAuth(mFingerprintManager, mCryptoObject);
-                    helper.setFingerPrintListener(fingerPrintListener);
-                }
+                mImageViewFingerView.setVisibility(View.GONE);
+//                mTextFingerText.setVisibility(View.GONE);
             }
         } else {
             mImageViewFingerView.setVisibility(View.GONE);
-            mTextFingerText.setVisibility(View.GONE);
+//            mTextFingerText.setVisibility(View.GONE);
         }
     }
 
