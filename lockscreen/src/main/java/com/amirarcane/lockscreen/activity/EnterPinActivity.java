@@ -396,7 +396,7 @@ public class EnterPinActivity extends AppCompatActivity {
         // or higher before executing any fingerprint-related code
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
-            if (fingerprintManager.isHardwareDetected()) {
+            if (fingerprintManager != null && fingerprintManager.isHardwareDetected()) {
                 //Get an instance of KeyguardManager and FingerprintManager//
                 mKeyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
                 mFingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
